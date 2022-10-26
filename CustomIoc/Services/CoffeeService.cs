@@ -6,11 +6,8 @@ public interface ICoffeeService
 
 public class CoffeeService : ICoffeeService
 {
-	public CoffeeService(IWaterService waterService
-		//, IBeanService<Catimor> beanService
-		)
+	public CoffeeService(IWaterService waterService, IBeanService<Catimor> beanService)
 	{
-		
 	}
 }
 
@@ -22,11 +19,15 @@ public interface IBeanService<T>
 {
 }
 
-class ArabicaBeanService<T> : IBeanService<T>
+public class ArabicaBeanService<T> : IBeanService<T>
 {
+	public ArabicaBeanService()
+	{
+		
+	}
 }
 
-public interface IWaterService	
+public interface IWaterService
 {
 }
 

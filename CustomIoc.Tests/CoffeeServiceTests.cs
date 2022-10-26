@@ -1,10 +1,11 @@
+using System.Net.Mime;
 using System.Reflection;
 using CustomIoc.Ioc;
 using CustomIoc.Services;
 
 namespace CustomIoc.Tests;
 
-public class Tests
+public class CoffeeServiceTests
 {
 	private IocContainer _container = new IocContainer();
 	
@@ -17,9 +18,11 @@ public class Tests
 	[Test]
 	public void Ioc_ResolvesService()
 	{
-		var sut = new IocContainer();
+		_container.Register<ICoffeeService, CoffeeService>();
+		_container.Register<IWaterService, TapWaterService>();
+		_container.Register(typeof(IBeanService<>), typeof(ArabicaBeanService<>));
 		
-		Assert.DoesNotThrow(() => sut.Resolve<ICoffeeService>());
+		Assert.DoesNotThrow(() => _container.Resolve<ICoffeeService>());
 	}
 
 	[Test]
@@ -68,11 +71,12 @@ public class Tests
 	}
 
 	[Test]
-	public void Ioc_Registered_dep_ctor_one_arg_interface_NotNull()
+	public void Ioc_Registered_dep_ctor_one_arg_generic_interface_NotNull()
 	{
 		// Arrange
 		_container.Register<ICoffeeService, CoffeeService>();
 		_container.Register<IWaterService, TapWaterService>();
+		_container.Register(typeof(IBeanService<>), typeof(ArabicaBeanService<>));
 
 		// Act
 		var coffeeService = _container.Resolve<ICoffeeService>();
@@ -112,5 +116,39 @@ public class Tests
 
 		// Assert
 		Assert.That(instance, Is.Not.Null);
+	}
+
+	[Test]
+	public void Reflection_WithGenerics_InspectTypes()
+	{
+		var contractTypeOpened = typeof(IBeanService<>);
+		var implementationTypeOpened = typeof(ArabicaBeanService<>);
+		
+		var contractTypeClosed = typeof(IBeanService<Catimor>);
+		var implementationTypeClosed = typeof(ArabicaBeanService<Catimor>);
+		
+		// var write = TestContext.WriteLine;
+		
+		var underlyingType = contractTypeClosed.GetGenericTypeDefinition();
+		var args = contractTypeClosed.GetGenericArguments();
+		
+		var constructedType = implementationTypeOpened.MakeGenericType(contractTypeClosed.GetGenericArguments());
+		
+		Assert.That(constructedType, Is.EqualTo(implementationTypeClosed));
+	}
+
+	[Test]
+	public void Reflecton_Transform_Closed_Generic_to_opened_ReturnsOpenedGeneric()
+	{
+		// Arrange
+		var closedGeneric = typeof(IBeanService<Catimor>);
+
+		
+		var openedGeneric = closedGeneric.GetGenericTypeDefinition();
+		
+		Assert.That(openedGeneric, Is.EqualTo(typeof(IBeanService<>)));
+		// Act
+
+		// Assert
 	}
 }

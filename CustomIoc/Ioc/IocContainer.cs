@@ -3,34 +3,6 @@ using System.Runtime.InteropServices;
 
 namespace CustomIoc.Ioc;
 
-public static class ReflectionExtensions
-{
-	public static bool HasParameterLessConstructor(this Type type)
-	{
-		var constructor = type
-			.GetConstructors(BindingFlags.Instance | BindingFlags.Public)
-			.SingleOrDefault(e => e.GetParameters().Length == 0);
-		return constructor != null;
-	}
-	
-	public static ConstructorInfo? GetParameterLessConstructor(this Type type)
-	{
-		if(type.HasParameterLessConstructor())
-			return type
-				.GetConstructors(BindingFlags.Instance | BindingFlags.Public)
-				.Single(e => e.GetParameters().Length == 0);
-		return null;
-	}
-	
-	public static ConstructorInfo GetCtorWithMaxParametersOrDefault(this Type type)
-	{
-		var constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
-		var selectedConstructor = constructors.MaxBy(e => e.GetParameters().Length);
-		var _ = selectedConstructor ?? throw new Exception($"No public constructor was found for {type.FullName}");	
-		return selectedConstructor;
-	}
-}
-
 public class IocContainer
 {
 	private Dictionary<Type, Type> _map = new Dictionary<Type, Type>();
@@ -72,6 +44,22 @@ public class IocContainer
 
 	private Type TryFindImplementation(Type contractType)
 	{
+		// if generic
+		if(contractType.IsGenericType)  // contractType is closed generic. Need to find it's opened version and then perform _map.
+		{
+			var genericArguments = contractType.GetGenericArguments();
+			
+			// find opened generic implementation
+			var contractTypeOpenedGeneric = contractType.GetGenericTypeDefinition();
+			if(_map.TryGetValue(contractTypeOpenedGeneric, out var implementationG))
+			{
+				var concreteImplementation = implementationG.MakeGenericType(genericArguments);
+				return concreteImplementation;
+			}
+		}
+		
+		
+		// if not generic
 		if(_map.TryGetValue(contractType, out var implementation))
 		{
 			return implementation;

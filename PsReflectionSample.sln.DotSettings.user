@@ -1,12 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0ee797d7_002De317_002D40be_002Db3db_002D4aa6eaf006cf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Ioc_ResolvesService" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Ioc_ResolvesService&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Ioc_ConcreteTypeNoCtorWithParamNotInDI_NotNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Ioc_ConcreteTypeNoCtorWithParamInDI_NotNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Ioc_RegisteredDepCtorWithNoParams_NotNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Ioc_Registered_dep_ctor_one_arg_interface_NotNull&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Reflection_CtorNoParams_HasOneCtor&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.Tests.Reflection_Instantiate_HasOneCtor&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8C50982B-57C2-4B47-A739-CF1203701B38::net6.0::CustomIoc.Tests.CoffeeServiceTests.Ioc_ResolvesService&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
